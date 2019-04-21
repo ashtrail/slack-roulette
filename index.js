@@ -1,12 +1,11 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
-// const errorHandler = require('./error-handler');
 
-// global.game = new Game();
-
-const routes = require('./app/routes');
+const commandMap = require('./app/commands');
 
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Log all request received
 app.use((req, res, next) => {
@@ -22,16 +21,23 @@ app.get('/ping', (req, res) => {
   res.send('pong');
 });
 
-app.use('/', routes);
+app.post('/', (req, res) => {
+  console.log(`object = ${JSON.stringify(req.body, null, 2)}`);
+  const command = req.body.text.split(' ').shift();
+  console.log('commands ', command);
+  const answer = !commandMap[command]
+    ? "this command isn't valid :disappointed:"
+    : commandMap[command](req.body.user_name);
+  res.status(200).send({
+    response_type: 'in_channel',
+    text: answer
+  });
+});
 
 app.use(function(req, res) {
   res.status(404).send("404 : Can't find URL");
 });
 
-// app.use(errorHandler);
-
 const server = app.listen(process.env.PORT || 3000, function() {
   console.log(`Server listening on ${server.address().port}`);
 });
-
-module.exports = app; // for testing

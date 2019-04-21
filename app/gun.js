@@ -4,37 +4,41 @@ const Slot = {
 };
 
 class Gun {
-  constructor(bullets = 6) {
-    this.bullets = bullets;
-    this.state = [];
-    for (let i = 0; i < this.bullets; i++) {
-      this.state.push(Slot.EMPTY);
+  constructor(barrelSize = 6) {
+    this.barrelSize = barrelSize;
+    this.barrel = [];
+    for (let i = 0; i < this.barrelSize; i++) {
+      this.barrel.push(Slot.EMPTY);
     }
   }
 
   load() {
-    console.log(this.state);
+    console.log(this.barrel);
     const slots = [];
-    for (let i = 0; i < this.bullets; i++) {
-      if (this.state[i] === Slot.EMPTY) slots.push(i);
+    for (let i = 0; i < this.barrelSize; i++) {
+      if (this.barrel[i] === Slot.EMPTY) slots.push(i);
     }
-    console.log("slots", slots);
+    console.log('slots', slots);
     if (slots === []) return false;
     var index = Math.floor(Math.random() * slots.length);
     var slot = slots[index];
-    this.state[slot] = Slot.LOADED;
+    this.barrel[slot] = Slot.LOADED;
     return true;
   }
 
   shoot() {
-    const bullet = this.state.shift();
-    this.state.push(Slot.EMPTY);
+    const bullet = this.barrel.shift();
+    this.barrel.push(Slot.EMPTY);
     return bullet === Slot.LOADED;
   }
 
   count() {
-    console.log(this.state);
-    return this.state.reduce((total, slot) => total + slot);
+    console.log(this.barrel);
+    return this.barrel.reduce((total, slot) => total + slot);
+  }
+
+  empty() {
+    this.barrel.fill(Slot.EMPTY);
   }
 }
 

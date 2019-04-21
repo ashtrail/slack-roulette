@@ -30,7 +30,7 @@ app.use(function(req, res) {
 
 // app.use(errorHandler);
 
-const server = app.listen(3000, function() {
+const server = app.listen(process.env.PORT || 3000, function() {
   console.log(`Server listening on ${server.address().port}`);
 });
 

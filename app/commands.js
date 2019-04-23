@@ -1,13 +1,9 @@
-const Gun = require('./gun');
-
-const gun = new Gun();
-
 module.exports = {
-  load(_username) {
+  load(gun, _username) {
     return gun.load() ? 'well locked and loaded' : ':warning: already full';
   },
 
-  shoot(username) {
+  shoot(gun, username) {
     let answer = '';
     if (gun.count() === 0) answer += ':warning: _the gun is empty_\n';
     if (gun.shoot()) {
@@ -18,16 +14,16 @@ module.exports = {
     return answer;
   },
 
-  count(_username) {
+  count(gun, _username) {
     return `there are ${gun.count()} on ${gun.barrelSize} shots loaded`;
   },
 
-  empty(_username) {
+  empty(gun, _username) {
     gun.empty();
     return 'the barrell has been emptied';
   },
 
-  help(_username) {
+  help(_gun, _username) {
     return `
   commands:
     - load : randomly loads one bullet in the barrel

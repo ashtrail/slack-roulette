@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const commandMap = require('./app/commands');
+const State = require('./app/state');
+
+const state = new State();
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,12 +25,12 @@ app.get('/ping', (req, res) => {
 });
 
 app.post('/', (req, res) => {
-  console.log(`object = ${JSON.stringify(req.body, null, 2)}`);
+  console.log(`state = ${JSON.stringify(state, null, 2)}`);
+  const gun = state.getGun(req.body.channel_id);
   const command = req.body.text.split(' ').shift();
-  console.log('commands ', command);
   const answer = !commandMap[command]
     ? "this command isn't valid :disappointed:"
-    : commandMap[command](req.body.user_name);
+    : commandMap[command](gun, req.body.user_name);
   res.status(200).send({
     response_type: 'in_channel',
     text: answer

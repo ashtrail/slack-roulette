@@ -19,7 +19,7 @@ class Gun {
       if (this.barrel[i] === Slot.EMPTY) slots.push(i);
     }
     console.log('slots', slots);
-    if (slots === []) return false;
+    if (slots.length === 0) return false;
     var index = Math.floor(Math.random() * slots.length);
     var slot = slots[index];
     this.barrel[slot] = Slot.LOADED;

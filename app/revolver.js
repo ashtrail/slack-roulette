@@ -18,9 +18,9 @@ class Revolver {
       if (this.cylinder[i] === Chamber.EMPTY) emptyChambers.push(i);
     }
     if (emptyChambers.length === 0) return false;
-    var index = Math.floor(Math.random() * emptyChambers.length);
-    var slot = emptyChambers[index];
-    this.cylinder[slot] = Chamber.LOADED;
+    const index = Math.floor(Math.random() * emptyChambers.length);
+    const chamber = emptyChambers[index];
+    this.cylinder[chamber] = Chamber.LOADED;
     return true;
   }
 
@@ -36,6 +36,18 @@ class Revolver {
 
   empty() {
     this.cylinder.fill(Chamber.EMPTY);
+  }
+
+  revolve() {
+    const bullet = this.cylinder.shift();
+    this.cylinder.push(bullet);
+  }
+
+  spin() {
+    const revolves = Math.floor(Math.random() * 6);
+    for (let i = 0; i < revolves; i++) {
+      this.revolve();
+    }
   }
 }
 

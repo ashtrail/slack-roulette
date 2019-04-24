@@ -23,6 +23,11 @@ module.exports = {
     return 'the chambers have been emptied';
   },
 
+  spin(revolver, _username) {
+    revolver.spin();
+    return "spinnin'"
+  },
+
   help(_revolver, _username) {
     return `
   commands:
@@ -30,6 +35,7 @@ module.exports = {
     - shoot : shoots the first slot in the barrel
     - count : counts the bullets in the barrel
     - empty : empties the barrel
+    - spin: spins the cylinder
     - help : shows the commands
   `;
   }

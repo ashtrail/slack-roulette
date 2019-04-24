@@ -26,11 +26,11 @@ app.get('/ping', (req, res) => {
 
 app.post('/', (req, res) => {
   console.log(`state = ${JSON.stringify(state, null, 2)}`);
-  const gun = state.getGun(req.body.channel_id);
+  const revolver = state.getGun(req.body.channel_id);
   const command = req.body.text.split(' ').shift();
   const answer = !commandMap[command]
     ? "this command isn't valid :disappointed:"
-    : commandMap[command](gun, req.body.user_name);
+    : commandMap[command](revolver, req.body.user_name);
   res.status(200).send({
     response_type: 'in_channel',
     text: answer

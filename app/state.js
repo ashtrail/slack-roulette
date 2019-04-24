@@ -1,4 +1,4 @@
-const Gun = require('./gun');
+const Revolver = require('./revolver');
 
 class State {
   constructor() {
@@ -7,7 +7,7 @@ class State {
 
   getGun(channel_id) {
     if (!this.state[channel_id]) {
-      this.state[channel_id] = new Gun();
+      this.state[channel_id] = new Revolver();
     }
     return this.state[channel_id];
   }

@@ -31,10 +31,10 @@ module.exports = {
   help(_revolver, _username) {
     return `
   commands:
-    - load : randomly loads one bullet in the barrel
-    - shoot : shoots the first slot in the barrel
-    - count : counts the bullets in the barrel
-    - empty : empties the barrel
+    - load : randomly loads one bullet in the cylinder
+    - shoot : fires the current chamber
+    - count : counts the bullets in the cylinder
+    - empty : empties the cylinder
     - spin: spins the cylinder
     - help : shows the commands
   `;
